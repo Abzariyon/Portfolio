@@ -1,3 +1,5 @@
+require('dotenv').config(); // Load environment variables
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -6,19 +8,23 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI; // Ensure only MongoDB Atlas is used
 
-// ✅ Connect to MongoDB (without using an external `database.js`)
-const MONGO_URI = 'mongodb://localhost:27017/portfolioDB'; // Local MongoDB
+if (!MONGO_URI) {
+    console.error('❌ MONGO_URI is missing. Set it in the .env file.');
+    process.exit(1); // Exit if MongoDB URI is not found
+}
 
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log('✅ MongoDB Connected'))
-.catch(err => console.error('❌ MongoDB Connection Failed:', err));
+// ✅ Connect to MongoDB Atlas
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('✅ MongoDB Atlas Connected'))
+    .catch(err => {
+        console.error('❌ MongoDB Atlas Connection Failed:', err);
+        process.exit(1); // Exit if connection fails
+    });
 
 // ✅ Middleware
-app.use(cors()); // Enable CORS for frontend
+app.use(cors());
 app.use(express.static(__dirname));
 app.use(express.json());
 
