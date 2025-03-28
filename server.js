@@ -1,17 +1,28 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./database");
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("✅ MongoDB Connected Successfully");
-  } catch (error) {
-    console.error("❌ MongoDB Connection Error:", error);
-    process.exit(1);
-  }
-};
+require("dotenv").config();
 
-connectDB();
+const app = express();
+
+// Connect to MongoDB Atlas
+connectDB().then(() => console.log("✅ Database connection initialized"));
+
+// Middleware
+app.use(express.json());
+app.use(cors());
+
+// 📌 Serve static files from the "public" folder
+app.use(express.static("public"));
+
+// Test Route
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+// Server listening
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
