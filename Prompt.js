@@ -32,3 +32,11 @@ const seedData = async () => {
 };
 
 seedData();
+
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000,
+}).then(() => console.log('✅ MongoDB Connected for seeding...'))
+  .catch(err => console.log('❌ Connection Error:', err));
+
