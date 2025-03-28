@@ -1,14 +1,14 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
-const connectDB = require("./database");
+const connectDB = require("./database"); // Import database connection
 
 require("dotenv").config();
 
 const app = express();
 
-// Connect to MongoDB Atlas
-connectDB().then(() => console.log("✅ Database connection initialized")).catch(err => console.error("❌ Database connection failed:", err));
+// ✅ Only call connectDB(), let database.js handle logging
+connectDB().catch((err) => console.error("❌ Database connection failed:", err));
 
 // Middleware
 app.use(express.json());
