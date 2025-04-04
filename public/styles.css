@@ -11,90 +11,159 @@ html::-webkit-scrollbar {
     display: none;
 }
 
-/* ✅ General Styling */
+/* ✅ General Reset */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
+/* ✅ Prevent Content Overlap */
+body {
+    font-family: Arial, sans-serif;
+    padding-top: 70px; /* Adjust for fixed navbar 
+ background: #f4f4f4;
+    display: flex;
+    flex-direction: column; /* ✅ Ensures heading stays on top */
+    align-items: center;
+    min-height: 100vh;
+}
+
 /* ✅ Navbar Styling */
 .navbar {
-   position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #007bff;
-    padding: 10px 10px;
-    color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
     z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out;
 }
+
+/* ✅ Left Section - Profile and Name */
 .navbar-left {
     display: flex;
     align-items: center;
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 8px;
-    transition: color 0.3s ease;
-}
-
-.nav-links li a:hover {
-    color: #00aaff;
-}
-
-
-/* ✅ Increase Size on Hover */
-.profile-pic:hover {
-    transform: scale(1.8); /* Increase size by 20% */
-}
-
-.name {
-    font-size: 35px;
-    font-weight: bold;
-}
-
 .profile-pic {
-    height: 40px; /* Adjust height to fit navbar size */
-    width: 40px; /* Ensure it's a square shape */
-    object-fit: cover; /* Ensure the image is not distorted */
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
     margin-right: 10px;
 }
 
-.name {
-    font-size: 18px;
-    font-weight: bold;
+.profile-pic:hover {
+    transform: scale(1.2);
 }
 
+.name {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
+/* ✅ Navigation Links (Hidden by Default on Mobile) */
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 20px;
-    padding: 0px 30px;
+    gap: 25px;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.nav-links li {
+    display: inline;
 }
 
 .nav-links a {
-    color: #fff;
     text-decoration: none;
-    font-size: 18px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 12px;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
 }
+
+/* ✅ Hover Effect */
+.nav-links a:hover {
+    color: #0073e6;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ✅ Resume Button */
+.resume-button {
+    background-color: #ffcc00;
+    color: #222;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.resume-button:hover {
+    background-color: #ffdb4d;
+    transform: scale(1.05);
+}
+
+/* ✅ Hamburger Menu Icon */
+.menu-toggle {
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+    display: none; /* Initially hidden */
+    margin-left: 20px;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Show ☰ icon */
+    }
+
+    .nav-links {
+        display: none; /* Hide menu by default */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: #007bff;
+        width: auto;
+        text-align: right;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links.active {
+        display: flex; /* Show when activated */
+    }
+
+    .nav-links li {
+        padding: 10px;
+    }
+}
+
 /* ✅ About Section Styling */
 #about {
     display: flex;
     justify-content: center; /* Horizontally center */
     align-items: center; /* Vertically center */
-    height: 100vh; /* Take up full viewport height */
+    min-height: 100vh; /* Full viewport height */
+    padding-top: 80px; /* Adjust for navbar height */
+    padding-bottom: 40px; /* Prevents content from touching the bottom */
     background-color: #f4f4f4; /* Light background color */
+    box-sizing: border-box;
 }
 
 .about-container {
@@ -105,19 +174,38 @@ html::-webkit-scrollbar {
     text-align: center; /* Center text inside */
     padding: 20px;
     max-width: 800px;
+    width: 90%; /* Responsive width */
 }
 
 .about-content h1 {
     font-size: 36px;
     margin-bottom: 16px;
     color: #0a192f;
+    font-weight: bold;
 }
 
 .about-content p {
     font-size: 18px;
     color: #333;
     line-height: 1.6;
+    text-align: justify; /* Ensures text is evenly distributed */
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #about {
+        padding-top: 100px; /* Extra space for smaller screens */
+    }
+
+    .about-content h1 {
+        font-size: 28px;
+    }
+
+    .about-content p {
+        font-size: 16px;
+    }
+}
+
 /* ✅ Carousel Arrows */
 .carousel-btn {
     position: absolute;
@@ -155,29 +243,49 @@ html::-webkit-scrollbar {
     max-height: 200px;
     overflow-y: scroll;
 }
-#skills {
+body {
+    font-family: Arial, sans-serif;
     text-align: center;
-    padding: 50px;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+#skills {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    background: white;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
 .skills-container {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 15px;
-    margin-top: 20px;
+    padding: 10px;
 }
 
 .skill-btn {
-    background-color: #007bff;
+    background-color: #007BFF;
     color: white;
-    padding: 12px 24px;
     border: none;
-    border-radius: 25px;
-    cursor: pointer;
+    padding: 12px 20px;
     font-size: 16px;
-    font-weight: 500;
-    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
 }
 
 .skill-btn:hover {
@@ -185,18 +293,68 @@ html::-webkit-scrollbar {
     transform: translateY(-3px);
 }
 
+.description {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    min-height: 30px;
+}
+
 /* ✅ Responsive Design */
+@media (max-width: 1024px) {
+    #skills {
+        padding: 30px 15px;
+    }
+
+    .skill-btn {
+        max-width: 180px;
+        padding: 10px 18px;
+        font-size: 15px;
+    }
+}
+
 @media (max-width: 768px) {
     .skills-container {
         gap: 10px;
     }
 
     .skill-btn {
-        padding: 10px 20px;
+        max-width: 160px;
         font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    h1 {
+        font-size: 24px;
     }
 }
 
+@media (max-width: 480px) {
+    #skills {
+        padding: 20px 10px;
+    }
+
+    .skills-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .skill-btn {
+        width: 90%;
+        max-width: none;
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+}
 /* ✅ Experience and Education Styling */
 #experience, #education {
     padding: 50px;
@@ -260,75 +418,121 @@ html::-webkit-scrollbar {
     }
 }
 /* ✅ Projects Section */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f4f4;
+    display: flex;
+    flex-direction: column; /* ✅ Ensures heading stays on top */
+    align-items: center;
+    min-height: 100vh;
+}
+
 #projects {
-    padding: 50px;
+    text-align: center;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px; /* ✅ Adds spacing for heading */
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* ✅ Carousel container */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* ✅ Centers the carousel */
+}
+
+/* ✅ Carousel track */
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* ✅ Each project card */
+.project-card {
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: column; /* ✅ Centers content vertically */
+    align-items: center; /* ✅ Centers content horizontally */
+    justify-content: center;
+    padding: 50px; /* ✅ Proper spacing */
+    height: 150px; /* ✅ Increased height for better centering */
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-/* ✅ Carousel Styling */
-.carousel-container {
-    position: relative;
-    overflow: hidden;
-    margin-top: 20px;
+/* ✅ Content inside the project card */
+.project-content {
+    max-width: 80%;
+    text-align: center;
+    padding: 0 20px; /* ✅ Adds left & right padding to avoid overlap */
 }
 
-.carousel {
-    display: flex;
-    transition: transform 0.5s ease;
+.project-content p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: 10px;
 }
 
-.project-card {
-    flex: 0 0 100%;
-    box-sizing: border-box;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin-right: 10px;
-}
-
-/* ✅ Carousel Arrows */
+/* ✅ Arrow buttons */
 .carousel-btn {
     position: absolute;
     top: 50%;
-    background-color: rgba(0, 0, 0, 0.7);
+    transform: translateY(-50%);
+    background: #007BFF;
     color: white;
-    padding: 12px;
     border: none;
+    padding: 12px;
+    font-size: 20px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 24px;
-    transform: translateY(-50%);
-    transition: background-color 0.3s;
+    opacity: 0.8;
+    transition: 0.3s;
+    z-index: 2; /* ✅ Ensures arrows stay visible */
 }
+
+/* ✅ Ensure arrows are always visible */
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
 
 .carousel-btn:hover {
-    background-color: rgba(0, 0, 0, 0.9);
+    background: #0056b3;
+    opacity: 1;
 }
 
-.prev-btn {
-    left: 10px;
-}
-
-.next-btn {
-    right: 10px;
-}
-
-/* ✅ Responsive Design */
+/* ✅ Responsive */
 @media (max-width: 768px) {
     .project-card {
-        padding: 15px;
+        padding: 30px;
+        height: auto;
+    }
+
+    .project-content {
+        max-width: 100%;
     }
 
     .carousel-btn {
-        padding: 8px;
+        padding: 10px;
         font-size: 18px;
     }
 
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-    }
+    .prev-btn { left: 5px; }
+    .next-btn { right: 5px; }
 }
 
 /* ✅ Contact Section */
